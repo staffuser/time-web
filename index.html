@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>World Clock</title>
+  <!-- Use viewport meta tag to ensure proper scaling on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Set dark mode styles as the default styles */
+    :root {
+      --background-color: #1c1c1c;
+      --text-color: #fff;
+      --box-background-color: #fff;
+      --box-text-color: #1c1c1c;
+    }
+
+    /* Add light mode styles when media query matches */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --background-color: #fff;
+        --text-color: #1c1c1c;
+        --box-background-color: #1c1c1c;
+      }
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color); /* Use custom CSS variables */
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    /* Use flexbox to center content and adjust spacing */
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Use flexbox to align timezone list items */
+    #timezones {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    li {
+      text-align: center;
+      width: 180px;
+    }
+
+    span {
+      font-weight: bold;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Use custom CSS variables to apply background color to time box */
+    .time-box {
+      background-color: var(--box-background-color);
+      color: var(--box-text-color);
+      padding: 5px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+      <h1>World Clock</h1>
+    </header>
+    <main>
+      <ul id="timezones">
+        <li>
+          <span>US East</span>
+          <div class="time-box" id="ny-time"></div>
+        </li>
+        <li>
+          <span>US Central</span>
+          <div class="time-box" id="chicago-time"></div>
+        </li>
+        <li>
+          <span>US Mountain</span>
+          <div class="time-box" id="denver-time"></div>
+        </li>
+        <li>
+          <span>US AZ</span>
+          <div class="time-box" id="phoenix-time"></div>
+        </li>
+        <li>
+          <span>US West</span>
+          <div class="time-box" id="la-time"></div>
+        </li>
+        <li>
+          <span>London</span>
+          <div class="time-box" id="london-time"></div>
+        </li>
+        <li>
+          <span>EU Central</span>
+          <div class="time-box" id="berlin-time"></div>
+        </li>
+
+        <li>
+            <span>Dubai</span>
+                <div class="time-box" id="dubai-time"></div>
+        </li>
+        <li>
+          <span>India</span>
+          <div class="time-box" id="india-time"></div>
+        </li>
+        <li>
+            <span>Bangkok</span>
+            <div class="time-box" id="bangkok-time"></div>
+          </li>
+        <li>
+          <span>Manila</span>
+          <div class="time-box" id="manila-time"></div>
+        </li>
+        <li>
+          <span>Tokyo</span>
+          <div class="time-box" id="tokyo-time"></div>
+        </li>
+        <li>
+        <span>Sydney</span>
+            <div class="time-box" id="sydney-time"></div>
+          </li>
+      </ul>
+    </main>
+    <script>
+      // Get the current time and format it as a string
+      function getTime(timezone) {
+        const now = new Date();
+        const options = {
+          timeZone: timezone,
+          hour12: false,
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        };
+        return now.toLocaleTimeString('en-US', options);
+      }
+
+      // Update the time box for each timezone every second
+      function updateTime() {
+        document.getElementById('ny-time').innerHTML = getTime('America/New_York');
+        document.getElementById('chicago-time').innerHTML = getTime('America/Chicago');
+        document.getElementById('denver-time').innerHTML = getTime('America/Denver');
+        document.getElementById('phoenix-time').innerHTML = getTime('America/Phoenix');
+        document.getElementById('la-time').innerHTML = getTime('America/Los_Angeles');
+        document.getElementById('london-time').innerHTML = getTime('Europe/London');
+        document.getElementById('berlin-time').innerHTML = getTime('Europe/Berlin');
+        document.getElementById('dubai-time').innerHTML = getTime('Asia/Dubai');
+        document.getElementById('india-time').innerHTML = getTime('Asia/Kolkata');
+        document.getElementById('bangkok-time').innerHTML = getTime('Asia/Bangkok');
+        document.getElementById('manila-time').innerHTML = getTime('Asia/Manila');
+        document.getElementById('tokyo-time').innerHTML = getTime('Asia/Tokyo');
+        document.getElementById('sydney-time').innerHTML = getTime('Australia/Sydney');
+      }
+
+      // Call updateTime every second
+      setInterval(updateTime, 1000);
+    </script>
+  </body>
