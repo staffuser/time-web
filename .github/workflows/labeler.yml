@@ -1,0 +1,67 @@
+- name: Labeler
+  uses: actions/labeler@v4.3.0
+            
+- any: ['list', 'of', 'globs']
+  all: ['list', 'of', 'globs']
+
+label1:
+- any: ['example1/*']
+
+# Add 'label2' to any file changes within 'example2' folder
+label2: 
+- any: ['example2/*']
+
+
+
+# Add 'repo' label to any root file changes
+repo:
+- '*'
+
+# Add '@domain/core' label to any change within the 'core' package
+'@domain/core':
+- package/core/**
+
+# Add 'test' label to any change to *.spec.js files within the source dir
+test:
+- src/**/*.spec.js
+
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+source:
+- any: ['src/**', '!src/docs/*']
+
+# Add 'frontend` label to any change to *.js files as long as the `main.js` hasn't changed
+frontend:
+- any: ['src/**/*.js']
+  all: ['!src/main.js']
+
+# Add the 'AnyChange' label to any changes within the entire repository if the 'dot' option is set to 'false'
+AnyChange:
+- '**'
+- '**/.*'
+- '**/.*/**'
+- '**/.*/**/.*'
+
+# Add the 'AnyChange' label to any changes within the entire repository if the 'dot' option is set to 'true'
+AnyChange:
+- '**'
+
+dot: true
+
+name: "Pull Request Labeler"
+on:
+- pull_request_target
+
+jobs:
+  triage:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v4
+
+    steps:
+    - uses: actions/checkout@v3 # Uploads repository content to the runner
+      with:
+        repository: "owner/repositoryName" # The one of the available inputs, visit https://github.com/actions/checkout#readme to find more
+    - uses: actions/labeler@v4
