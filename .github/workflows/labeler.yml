@@ -1,17 +1,10 @@
 - name: Labeler
   uses: actions/labeler@v4.3.0
             
-- any: ['list', 'of', 'globs']
-  all: ['list', 'of', 'globs']
+- all: ['list', 'of', 'globs']
 
 label1:
 - any: ['example1/*']
-
-# Add 'label2' to any file changes within 'example2' folder
-label2: 
-- any: ['example2/*']
-
-
 
 # Add 'repo' label to any root file changes
 repo:
